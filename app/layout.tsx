@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,25 +21,17 @@ export const metadata: Metadata = {
     siteName: 'PromptHire',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'PromptHire - AI Prompt Engineer & 3D Animator Marketplace',
-    description: 'Find and hire the best AI prompt engineers and 3D animators.',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        <div className="min-h-screen">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }
