@@ -1,6 +1,25 @@
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export default function AdminDashboard() {
+    const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const isAuthenticated = localStorage.getItem('adminAuth');
+    if (!isAuthenticated) {
+      router.push('/admin/login');
+    }
+  }, [router]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminAuth');
+    localStorage.removeItem('adminEmail');
+    router.push('/admin/login');
+  };
+
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Admin Dashboard</h1>
@@ -8,6 +27,12 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-sm text-gray-500 mb-1">Total Revenue</p>
+                  <button
+          onClick={handleLogout}
+          className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+        >
+          Logout
+        </button>
           <p className="text-2xl font-bold text-indigo-600">$12,450</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
